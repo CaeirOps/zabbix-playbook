@@ -1,0 +1,18 @@
+[all:vars]
+ansible_connection=ssh
+ansible_ssh_private_key_file=/home/kaeir0x/Documents/labs/ansible-lab/vagrant-4-labs/id_rsa
+ansible_user=root
+host_key_checking = False
+
+[all]
+192.168.63.10
+192.168.63.20
+192.168.63.30
+
+[ubuntu]
+192.168.63.10
+192.168.63.30
+54.234.30.113 ansible_ssh_private_key_file=/home/kaeir0x/Documents/labs/ansible-lab/vagrant-4-labs/caeiro-teste.pem ansible_user=ubuntu ansible_become=yes
+
+[centos]
+192.168.63.20

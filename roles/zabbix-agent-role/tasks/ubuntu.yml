@@ -1,0 +1,45 @@
+---
+- name: "Adicionando Zabbix Repo Key"
+  apt_key:
+    url: https://repo.zabbix.com/zabbix-official-repo.key
+    state: present
+
+- name: "Adicionando Zabbix Repo"
+  apt_repository:
+    repo: deb https://repo.zabbix.com/zabbix/{{zabbix_version}}/{{ansible_distribution|lower}} {{ansible_distribution_release}} main
+    state: present
+#  register: zabbix_repo
+
+#- name: "Adicionando Zabbix Repo"
+#  command: "{{ item }}"
+#  with_items:
+#    - "wget https://repo.zabbix.com/zabbix/{{zabbix_version}}/{{ansible_distribution|lower}}/pool/main/z/zabbix-release/zabbix-release_{{zabbix_release}}+{{ansible_distribution|lower}}{{ansible_distribution_version}}_all.deb"
+#    - "dpkg -i zabbix-release_{{zabbix_release}}+{{ansible_distribution|lower}}{{ansible_distribution_version}}_all.deb"
+#  when: zabbix_repo is changed
+
+- name: "Instalando Agent"
+  apt:
+    name: zabbix-agent
+    state: present
+    update_cache: yes
+
+- name: "Configurando o Agent - Endereço do Server"
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regex: "^Server=.*"
+    line: "Server={{ip_server}}"
+  notify: restart-agent
+
+- name: "Configurando o Agent - Configurando o Server Active"
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regex: "^ServerActive=.*"
+    line: "ServerActive={{ip_server}}"
+  notify: restart-agent
+
+- name: "Configurando o Agent - Descomentando Hostname Key"
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regex: "^# HostnameItem="
+    line: "HostnameItem=system.hostname"
+  notify: restart-agent

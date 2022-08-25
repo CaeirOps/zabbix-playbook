@@ -1,0 +1,9 @@
+---
+# tasks file for zabbix-agent-role
+- name: Instalando no Ubuntu 22
+  include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Instalando no Centos 22
+  include: centos.yml
+  when: ansible_distribution == 'Centos'

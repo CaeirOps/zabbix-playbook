@@ -1,0 +1,10 @@
+---
+# defaults file for zabbix-agent-role
+
+# Definindo versões
+zabbix_version: "6.0"
+zabbix_release: "6.0-3"
+
+# Endereço do Servidor
+
+ip_server: "192.168.63.1"

@@ -1,0 +1,6 @@
+---
+- name: Instalacao de Zabbix Agent
+  hosts: ubuntu
+  tasks:
+    - include_role:
+        name: zabbix-agent-role

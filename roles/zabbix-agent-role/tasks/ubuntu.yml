@@ -8,14 +8,6 @@
   apt_repository:
     repo: deb https://repo.zabbix.com/zabbix/{{zabbix_version}}/{{ansible_distribution|lower}} {{ansible_distribution_release}} main
     state: present
-#  register: zabbix_repo
-
-#- name: "Adicionando Zabbix Repo"
-#  command: "{{ item }}"
-#  with_items:
-#    - "wget https://repo.zabbix.com/zabbix/{{zabbix_version}}/{{ansible_distribution|lower}}/pool/main/z/zabbix-release/zabbix-release_{{zabbix_release}}+{{ansible_distribution|lower}}{{ansible_distribution_version}}_all.deb"
-#    - "dpkg -i zabbix-release_{{zabbix_release}}+{{ansible_distribution|lower}}{{ansible_distribution_version}}_all.deb"
-#  when: zabbix_repo is changed
 
 - name: "Instalando Agent"
   apt:
